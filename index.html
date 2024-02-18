@@ -1,59 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PPR GeoJSON Map with Green Markers and Filter</title>
+  <title>GeoJSON leaflet map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 </head>
+
 <body>
 
-<div id="map" style="width: 600px; height: 400px"></div>
+  <div id="map" style="width: 600px; height: 400px"></div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js'></script>
-<script src="PPR.geojson"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="PPR.geojson"></script>
+  <script src="https://api.mapbox.com/mapbox-gl.js/v2.11.0/mapbox-gl.js"></script>
 
-<script>
+  <script>
 
-// Create map
-var map = L.map('map').setView([39.9526, -75.1392], 10); 
+    var map = L.map('map').setView([39.9526, -75.1652], 5);
+     // Add mapbox base layer 
+     
 
-// Add base layer 
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={eyJ1Ijoiam9laWRlbGwiLCJhIjoiY2xzY2dvYXVxMGd3eDJrbzA5MWpma3BsdSJ9}', {
-  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  maxZoom: 18,
-  id: 'mapbox/streets-v11', 
-  accessToken: 'pk.eyJ1Ijoiam9laWRlbGwiLCJhIjoiY2xzY2dvYXVxMGd3eDJrbzA5MWpma3BsdSJ9.Ps70OF-1X9Yi6aYrjEncyg'
-}).addTo(map);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: '&copy; <a href="https://www.mapbox.com/about/">Mapbox</a> | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    id: 'mapbox/streets-v11',
+    accessToken: 'pk.eyJ1Ijoiam9laWRlbGwiLCJhIjoiY2xzY2dvYXVxMGd3eDJrbzA5MWpma3BsdSJ9.Ps70OF-1X9Yi6aYrjEncyg'
+    }).addTo(map);
+
+   
+    /*L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9laWRlbGwiLCJhIjoiY2xzY2dvYXVxMGd3eDJrbzA5MWpma3BsdSJ9.Ps70OF-1X9Yi6aYrjEncyg', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11mapbox://styles/mapbox/streets-v12', 
+    }).addTo(map);*/
 
 
-// Load GeoJSON data
-var geoJSONData = L.geoJson(PPR.geojson);
+    var philarec = L.geoJson(PPR, {
+        pointToLayer: function(feature,latlng) {
+              console.log(feature.properties)
+              return L.circleMarker(latlng, {
+                radius: 2, 
+                color: 'green',
+                  
+              });   
+          },
 
-// Function to style markers
-function style(feature) {
-  return {
-    radius: 5,
-    fillColor: 'green',
-    fillOpacity: 0.8,
-    weight: 1,
-    opacity: 0.5
-  };
-}
 
-// Function to filter markers
-function filter(feature) {
-  
-  return feature.properties.PARK_NAME === "Frank Glavin Playground";
-}
+        filter: function(feature, layer){
+          if(feature.properties.PARK_NAME === 'Frank Glavin Playground'){
+              return true
+                        }
+      
+        
+      }
+    }).addTo(map)
 
-// Add GeoJSON layer with filtering
-geoJSONData.addTo(map, {
-  filter: filter,
-  pointToLayer: function(feature, latlng) {
-    return L.circleMarker(latlng, style(feature));
-  }
-});
-
-</script>
+  </script>
 
 </body>
+</html>
