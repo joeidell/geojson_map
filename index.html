@@ -15,13 +15,17 @@
 
   <script>
 
-    var map = L.map('map').setView([0, 0], 1);
+    var map = L.map('map').setView([40, -75.165222], 10);
      // Add mapbox base layer 
      
 
-     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  maxZoom: 18,
+  id: 'mapbox/light-v10', 
+  accessToken: 'pk.eyJ1IjoiY29saW44MTUiLCJhIjoiY2xzZHZndnh2MTQzdzJrdDBoNTRlNmR1ciJ9.IWJk31gwxv8sW3ss06obkQ'
+}).addTo(map);
 
    
     /*L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9laWRlbGwiLCJhIjoiY2xzY2dvYXVxMGd3eDJrbzA5MWpma3BsdSJ9.Ps70OF-1X9Yi6aYrjEncyg', {
