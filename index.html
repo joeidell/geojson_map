@@ -19,11 +19,9 @@
      // Add mapbox base layer 
      
 
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: '&copy; <a href="https://www.mapbox.com/about/">Mapbox</a> | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        id: 'mapbox://styles/mapbox/streets-v12',
-        accessToken: 'pk.eyJ1Ijoiam9laWRlbGwiLCJhIjoiY2xzY2dvYXVxMGd3eDJrbzA5MWpma3BsdSJ9.Ps70OF-1X9Yi6aYrjEncyg'
-        }).addTo(map);
+     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
    
     /*L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9laWRlbGwiLCJhIjoiY2xzY2dvYXVxMGd3eDJrbzA5MWpma3BsdSJ9.Ps70OF-1X9Yi6aYrjEncyg', {
